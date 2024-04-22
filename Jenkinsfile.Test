@@ -1,16 +1,6 @@
 pipeline {
     agent any
     stages {
-         stage("clean install") {
-            steps {
-               bat "mvn clean install" 
-            }
-        }
-        stage("run tests") {
-            steps {
-               bat "mvn test" 
-            }
-        }
         stage("npm install") {
             steps {
                 dir('Frontend') {
@@ -28,11 +18,20 @@ pipeline {
                 stage("xcopy") {
             steps {
                   dir('Frontend') {
-               bat "xcopy /y /i build c:\\reactApp" 
+bat 'xcopy "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sails_Clerk\\Frontend\\build\\static" "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sails_Clerk\\src\\main\\resources\\static" /E /H /K /Y'
                   }
             }
         }
-    
+         stage("clean install") {
+            steps {
+               bat "mvn clean install" 
+            }
+        }
+        stage("run tests") {
+            steps {
+               bat "mvn test" 
+            }
+        }
     }
     
     post {
