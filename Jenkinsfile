@@ -10,8 +10,9 @@ pipeline {
         }
                 stage("test") {
             steps {
+                   dir('Frontend') {
                bat "npm test" 
-            
+                   }
             }
         }
 
@@ -23,7 +24,9 @@ pipeline {
           }
           success{
                echo "all stages executed with success."
+              dir('Frontend') {
                bat 'npm start'
+              }
           }
     }
 }
