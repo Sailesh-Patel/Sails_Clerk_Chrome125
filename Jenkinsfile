@@ -8,35 +8,22 @@ pipeline {
                 }
             }
         }
-                stage("npm run build") {
+                stage("test") {
             steps {
-                dir('Frontend') {
-               bat "npm run build" 
-                }
+               bat "npm test" 
+            
             }
         }
-                stage("xcopy") {
-            steps {
-                  dir('Frontend') {
-bat 'xcopy "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sails_Clerk\\Frontend\\build\\static" "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sails_Clerk\\src\\main\\resources\\static" /E /H /K /Y'
-                  }
-            }
-        }
-         stage("clean install") {
-            steps {
-               bat "mvn clean install" 
-            }
-        }
-        stage("run tests") {
-            steps {
-               bat "mvn test" 
-            }
-        }
+
     }
     
     post {
           always {
-            archiveArtifacts artifacts: 'src/test/java/com/Inc/Project1/BE/selenium/testfile.txt', followSymlinks: false
-        }
+               echo "pipeline concluded."
+          }
+          success{
+               echo "all stages executed with success."
+               bat 'npm start'
+          }
     }
 }
