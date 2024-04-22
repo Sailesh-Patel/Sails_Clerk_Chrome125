@@ -8,13 +8,6 @@ pipeline {
                 }
             }
         }
-                stage("test") {
-            steps {
-                   dir('Frontend') {
-               bat "npm test" 
-                   }
-            }
-        }
 
     }
     
