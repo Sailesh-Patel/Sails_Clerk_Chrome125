@@ -8,7 +8,13 @@ pipeline {
                 }
             }
         }
-
+  stage("npm run build") {
+            steps {
+                dir('Frontend') {
+               bat "npm run build" 
+                }
+            }
+        }
     }
     
     post {
